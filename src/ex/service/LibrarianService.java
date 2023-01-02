@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -247,25 +248,31 @@ public class LibrarianService {
 	
 	public void output() {
 		
-		String filePath = "favorites.txt";
-		
-		BufferedWriter writer = null; 
+		BufferedWriter bw = null; 
 		
 		try {
-			File file = new File(filePath);
-			if(!file.exists) {
-				
+			File file = new File("favorites.txt");
+			
+			FileWriter fw = new FileWriter(file);
+			
+			bw = new BufferedWriter(fw);
+			for(int i = 0; i <= favoriteList.size(); i++) {
+				Favorite str = favoriteList.get(i);
+				bw.write(String.valueOf(str));
 			}
+			System.out.println("파일 작성");
 			
-		
-			
+			bw.flush();
 			
 		} catch(IOException e) {
+			
 			System.out.println("예외 발생");
 			e.printStackTrace(); 
+			
 		} finally {
 			try {
-				.close();
+				bw.close();
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
